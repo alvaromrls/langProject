@@ -1,5 +1,7 @@
 # Lang
 
+> Este proyecto busca crear un servidor web para estudiar vocabulario
+
 ## Ejecutar el namespace (necesario)
 
 `kubectl -f namespace.yaml`
