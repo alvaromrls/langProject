@@ -20,3 +20,9 @@ Servicio de un servidor API rest usando Flask para el acceso a la base de datos.
 - readme: Contiene información de como ejecutar este servicio.
 - Dockerfile: Fichero de Docker para crear la imagen.
 - requirements.txt: Dependencias de python del servicio.
+
+# Hoja de Ruta
+
+- Crear el modelo de datos en el servidor de FLASK [pendiente]
+- Crear un servicio de front-end usando REACT JS [pendiente]
+- Actualizar el Volumen de Persistencia para que guarde bien los datos [pendiente]
