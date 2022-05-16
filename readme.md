@@ -23,6 +23,10 @@ Servicio de un servidor API rest usando Flask para el acceso a la base de datos.
 
 # Hoja de Ruta
 
-- Crear el modelo de datos en el servidor de FLASK [pendiente]
+- Crear el modelo de datos en el servidor de FLASK [listo]
+- Terminar de documentar la API [pendiente]
+- Crear el servidor API en desarrollo con gnix [pendiente]
 - Crear un servicio de front-end usando REACT JS [pendiente]
 - Actualizar el Volumen de Persistencia para que guarde bien los datos [pendiente]
+
+# Actualizaciones
