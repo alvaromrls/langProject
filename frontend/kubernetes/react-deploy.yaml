@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react
+  namespace: lang
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+  template:
+    metadata:
+      labels:
+        app: react
+    spec:
+      containers:
+        - name: react
+          image: frontend:dev
+          ports:
+            - containerPort: 3000
+          env:
+            - name: FLASK_URL
+              value: http://flask-service
