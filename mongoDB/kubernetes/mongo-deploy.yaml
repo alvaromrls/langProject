@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydatabase
+  namespace: lang
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongoDB
+  template:
+    metadata:
+      labels:
+        app: mongoDB
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo
+          args: ["--dbpath", "/data/db"]
+          volumeMounts:
+            - name: "mongo-data"
+              mountPath: "/data/db"
+      volumes:
+        - name: "mongo-data"
+          persistentVolumeClaim:
+            claimName: "mongo-data-claim"

@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mongo-ingress
+  namespace: lang
+spec:
+  rules:
+    - host: mong.lang.local
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: mydatabase-service
+                port:
+                  number: 27017
+            path: /
