@@ -25,10 +25,17 @@ Servicio de un servidor API rest usando Flask para el acceso a la base de datos.
 
 # Hoja de Ruta
 
-- Crear el modelo de datos en el servidor de FLASK [listo]
+- Crear el modelo básico de datos en el servidor de FLASK [listo]
 - Terminar de documentar la API [pendiente]
 - Crear el servidor API en desarrollo con gnix [pendiente]
-- Crear un servicio de front-end usando REACT JS [pendiente]
+- Crear un servicio de front-end usando REACT JS [progreso]
 - Actualizar el Volumen de Persistencia para que guarde bien los datos [pendiente]
 
+# Apreciaciones
+
+- Tras mucho tiempo sin usar React, se olvidan cosas
+
 # Actualizaciones
+
+- 16/05/2002: React funciona en kubernetes y se comunica con Flask
+- 16/05/2022: Creado el back end con Mongo y Flask
