@@ -16,10 +16,10 @@ spec:
       containers:
         - name: mongodb
           image: mongo
-          args: ["--dbpath", "/data/db"]
+          args: ["--dbpath", "/run/desktop/mnt/host/c/Users/alvar/data/db"]
           volumeMounts:
             - name: "mongo-data"
-              mountPath: "/data/db"
+              mountPath: "/run/desktop/mnt/host/c/Users/alvar/data/db"
       volumes:
         - name: "mongo-data"
           persistentVolumeClaim:

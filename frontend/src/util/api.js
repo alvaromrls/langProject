@@ -4,7 +4,7 @@ import axios from "axios";
 //   ? `process.env.FLASK_URL${/api/vocabulary}`
 //   : "http://127.0.0.1:30000/api/vocabulary";
 
-const URL_BASE = `http://127.0.0.1:30000/api/vocabulary`;
+const URL_BASE = `http://192.168.18.13:30000/api/vocabulary`;
 
 const get_groups = () => {
   return axios.get(`${URL_BASE}/group`).then((res) => {

@@ -9,4 +9,4 @@ spec:
   capacity:
     storage: 50M
   hostPath:
-    path: /data/db
+    path: /run/desktop/mnt/host/c/Users/alvar/data/db

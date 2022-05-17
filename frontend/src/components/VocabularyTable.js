@@ -32,11 +32,11 @@ class VocabularyTable extends React.Component {
         component={Paper}
         sx={{ maxWidth: "70%", margin: "auto", marginTop: 5 }}
       >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">English</TableCell>
-              <TableCell align="center">Spanish</TableCell>
+              <TableCell align="center">Francés</TableCell>
+              <TableCell align="center">Español</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
