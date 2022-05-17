@@ -5,10 +5,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { get_groups } from "../util/api";
 
 class SelectCategory extends React.Component {
   constructor(props) {
     super(props);
+    // console.log(process.env);
+    // console.log(process.env.MONGO_URL);
     // this.handleChange = this.handleChange.bind(this);
     // Set initial state (ONLY ALLOWED IN CONSTRUCTOR)
     this.state = {
@@ -17,16 +20,10 @@ class SelectCategory extends React.Component {
     };
   }
   componentDidMount() {
-    axios.get("http://127.0.0.1:30000/api/vocabulary/group").then((res) => {
-      const grupo = res.data.map((dato) => dato.name);
+    get_groups().then((grupo) => {
       this.setState({ grupo });
     });
   }
-  //   handleChange = (event) => {
-  //     this.setState({
-  //       selection: event.target.value,
-  //     });
-  //   };
   render() {
     return (
       <Box
@@ -43,7 +40,9 @@ class SelectCategory extends React.Component {
             onChange={this.props.handleChange}
           >
             {this.state.grupo.map((opcion) => (
-              <MenuItem value={opcion}>{opcion}</MenuItem>
+              <MenuItem key={opcion} value={opcion}>
+                {opcion}
+              </MenuItem>
             ))}
             {/* <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem> */}

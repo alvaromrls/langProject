@@ -19,5 +19,7 @@ spec:
           ports:
             - containerPort: 3000
           env:
-            - name: FLASK_URL
+            - name: REACT_APP_FLASK_URL
               value: http://flask-service
+            # - name: MONGO_URL
+            #   value: mongodb://mydatabase-service

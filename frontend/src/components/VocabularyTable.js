@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Zoom from "@mui/material/Zoom";
+import { get_words } from "../util/api";
 
 class VocabularyTable extends React.Component {
   constructor(props) {
@@ -19,18 +19,11 @@ class VocabularyTable extends React.Component {
     };
   }
   componentDidUpdate(prevProps) {
-    // console.log(prevProps);
-    console.log(this.props);
     if (this.props.group !== prevProps.group) {
       this.setState({ vocabulario: [] });
-      axios
-        .get(
-          `http://127.0.0.1:30000/api/vocabulary/word?group=${this.props.group}`
-        )
-        .then((res) => {
-          const vocabulario = res.data.map((dato) => dato);
-          this.setState({ vocabulario });
-        });
+      get_words(this.props.group).then((vocabulario) => {
+        this.setState({ vocabulario });
+      });
     }
   }
   render() {
@@ -48,7 +41,7 @@ class VocabularyTable extends React.Component {
           </TableHead>
           <TableBody>
             {this.state.vocabulario.map((row) => (
-              <Zoom in={true} style={{ transitionDelay: "10ms" }}>
+              <Zoom in={true} style={{ transitionDelay: "10ms" }} key={row.id}>
                 <TableRow
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

@@ -10,7 +10,10 @@ class App extends React.Component {
   render() {
     return (
       <Container maxWidth="false" sx={{ bgcolor: "#cfe8fc", marginTop: "0" }}>
-        <Box maxWidth="lg" sx={{ bgcolor: "white", height: "100vh" }}>
+        <Box
+          maxWidth="lg"
+          sx={{ bgcolor: "white", height: "100vh", maring: "auto" }}
+        >
           <ShowVocabulary />
         </Box>
       </Container>
