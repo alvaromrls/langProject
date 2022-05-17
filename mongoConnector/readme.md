@@ -10,7 +10,7 @@
 
     kubectl apply -f .
 
-# API
+# API [en proceso]
 
 ## /api/group
 
