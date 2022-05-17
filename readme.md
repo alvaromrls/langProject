@@ -1,6 +1,6 @@
 # Lang
 
-> Este proyecto busca crear un servidor web para estudiar vocabulario
+Este proyecto busca crear un servidor web para estudiar vocabulario y volcar mis conocimentos en Kubernetes en él.
 
 ## Ejecutar el namespace (necesario)
 
@@ -25,7 +25,7 @@ Servicio de un servidor API rest usando Flask para el acceso a la base de datos.
 
 # 3. frontend
 
-Cliente web para acceder a la información del servidor. Se encuentra en el directorio **frontend** y esta basado en arquitectura react. Está organizado:
+Cliente web para acceder a la información del servidor. Se encuentra en el directorio **frontend** y esta basado en arquitectura react. Está organizado de la siguiente manera:
 
 - src: Se encuentra el código principal del servicio.
 - Dockerfile: Fichero de Docker para crear la imagen.
@@ -33,9 +33,12 @@ Cliente web para acceder a la información del servidor. Se encuentra en el dire
 - package.json / package-lock.json: Dependencias de JS del servicio.
 - readme: Contiene información de como ejecutar este servicio.
 
+Una captura del frontend:
+![Ejemplo FrontEnd](./img/ejemplo_frontend.png)
+
 # Hoja de Ruta
 
-- Añadir POST/DELETE/PUT al front-end
+- Añadir POST/DELETE/PUT al front-end [pendiente]
 - Crear el modelo básico de datos en el servidor de FLASK [listo]
 - Terminar de documentar la API [pendiente]
 - Crear el servidor API en desarrollo con gnix [pendiente]
