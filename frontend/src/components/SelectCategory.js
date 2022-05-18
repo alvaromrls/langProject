@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,10 +9,6 @@ import { get_groups } from "../util/api";
 class SelectCategory extends React.Component {
   constructor(props) {
     super(props);
-    // console.log(process.env);
-    // console.log(process.env.MONGO_URL);
-    // this.handleChange = this.handleChange.bind(this);
-    // Set initial state (ONLY ALLOWED IN CONSTRUCTOR)
     this.state = {
       selection: "",
       grupo: [],

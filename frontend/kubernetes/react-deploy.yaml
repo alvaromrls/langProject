@@ -23,3 +23,5 @@ spec:
               value: http://flask-service
             # - name: MONGO_URL
             #   value: mongodb://mydatabase-service
+            - name: PORT
+              value: "3000"

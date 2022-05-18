@@ -1,7 +1,5 @@
 // src/App.js
-import Word from "./Word";
 import React from "react";
-import axios from "axios";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import ShowVocabulary from "./components/ShowVocabulary";
