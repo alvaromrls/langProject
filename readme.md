@@ -41,20 +41,18 @@ Una captura del frontend:
 - Añadir POST/DELETE/PUT al front-end [pendiente]
 - Crear el modelo básico de datos en el servidor de FLASK [listo]
 - Terminar de documentar la API [pendiente]
-- Crear el servidor API en desarrollo con gnix [pendiente]
+- Crear el servidor API en desarrollo con uwsgi [listo]
 - Crear un servicio de front-end usando REACT JS [listo]
 - Actualizar el Volumen de Persistencia para que guarde bien los datos [listo]
 - Añadir Readiness y Liveness a los contenedores [pendiente]
 - Acceder a la api desde la petición de navegador de manera correcta [pendiente]
-- Crear todo en entornos de Produccion [futuro]
+- Crear todo en entornos de Produccion [medio-listo]
 - Añadir proceso de autentificación-perfiles [futuro]
-
-# Apreciaciones
-
-- Tras mucho tiempo sin usar React, se olvidan cosas
+- Ajustar visibilidad de cada uno de los contenedores [futuro]
 
 # Actualizaciones
 
+- 18/05/2022: Versiones de prod de Flask y React
 - 17/05/2022: Almacenamiento permanente en mi PC
 - 17/05/2022: Primera versión operativa de React
 - 16/05/2022: React funciona en kubernetes y se comunica con Flask

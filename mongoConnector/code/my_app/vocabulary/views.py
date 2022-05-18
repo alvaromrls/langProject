@@ -1,7 +1,3 @@
-import json
-import re
-from tkinter import W
-from unicodedata import category
 from flask import request, Blueprint, jsonify
 from my_app.vocabulary.models import Group, Word
 from flask.views import MethodView

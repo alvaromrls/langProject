@@ -10,6 +10,10 @@
 
     kubectl apply -f .
 
+# Ejecutar el servicio en local (debug)
+
+    python run.py
+
 # API [en proceso]
 
 ## /api/group

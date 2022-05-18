@@ -1,2 +1,6 @@
 
 mongoConnector/pymon/
+
+mongoConnector/code/my_app/__pycache__/
+
+*.pyc
