@@ -10,7 +10,7 @@ class App extends React.Component {
       <Container maxWidth="false" sx={{ bgcolor: "#cfe8fc", margin: "0" }}>
         <Box
           maxWidth="lg"
-          sx={{ bgcolor: "white", height: "100vh", maring: "auto" }}
+          sx={{ bgcolor: "#ffffff", height: "100vh", maring: "auto" }}
         >
           <ShowVocabulary />
         </Box>

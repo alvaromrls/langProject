@@ -5,6 +5,14 @@ import Logout from "./Logout";
 import Login from "./Login";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import { styled } from "@mui/material/styles";
+
+const Div = styled("div")(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(1),
+}));
 
 const Profile = (props) => {
   const { handleLogin } = props;
@@ -46,8 +54,10 @@ const Profile = (props) => {
       >
         {isAuthenticated ? (
           <>
-            <Avatar alt={user.name} src={user.picture} />
-            <h2>{user.name}</h2>
+            <Button variant="outlined" disable="true">
+              <Avatar alt={user.name} src={user.picture} />
+              <Div>{user.name}</Div>
+            </Button>
             <Logout />
           </>
         ) : (

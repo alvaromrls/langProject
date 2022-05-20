@@ -4,7 +4,7 @@ import axios from "axios";
 //   ? `process.env.FLASK_URL${/api/vocabulary}`
 //   : "http://127.0.0.1:30000/api/vocabulary";
 
-const URL_BASE = `http://192.168.18.13:30000/api/vocabulary`;
+const URL_BASE = `http://192.168.18.13:5000/api/vocabulary`;
 
 const prepare_headers = (token) => {
   // const confing = { headers: { Authorization: `Bearer ${token}` } };
@@ -13,7 +13,7 @@ const prepare_headers = (token) => {
 
 const get_groups = (token) => {
   const config = prepare_headers(token);
-  return axios.get(`${URL_BASE}/group`, { config }).then((res) => {
+  return axios.get(`${URL_BASE}/group/`, config).then((res) => {
     // console.log(res.data);
     const grupo = res.data.map((dato) => ({
       name: dato.name,
