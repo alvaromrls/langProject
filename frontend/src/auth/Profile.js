@@ -7,6 +7,8 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
+import CircularProgress from "@mui/material/CircularProgress";
+import { margin } from "@mui/system";
 
 const Div = styled("div")(({ theme }) => ({
   ...theme.typography.button,
@@ -64,7 +66,13 @@ const Profile = (props) => {
           <Login />
         )}
       </Stack>
-      {isLoading && <h2> LOADING</h2>}
+      {isLoading && (
+        <div
+          style={{ display: "flex", justifyContent: "center", marginTop: 50 }}
+        >
+          <CircularProgress size={100} justifyContent="center" />
+        </div>
+      )}
     </>
   );
 };

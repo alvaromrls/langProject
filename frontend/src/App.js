@@ -11,6 +11,7 @@ class App extends React.Component {
         <Box
           maxWidth="lg"
           sx={{ bgcolor: "#ffffff", height: "100vh", maring: "auto" }}
+          justifyContent="center"
         >
           <ShowVocabulary />
         </Box>
