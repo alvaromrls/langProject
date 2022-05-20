@@ -3,7 +3,6 @@ from flask_mongoengine import MongoEngine
 from redis import Redis
 import os
 from flask_cors import CORS
-import pymongo
 
 # "Production" will take the env, local the fix address
 host = os.environ.get("MONGO_URL") or "mongodb://localhost:31001"
@@ -30,6 +29,12 @@ redis = Redis()
 from my_app.vocabulary.views import vocabulary
 
 app.register_blueprint(vocabulary)
+
+
+client_origin_url = "http://localhost:5000"
+auth0_audience = "https://dev-t178cgbr.us.auth0.com/api/v2/"
+auth0_domain = "dev-t178cgbr.us.auth0.com"
+
 
 # if __name__ == "__main__":
 #     app.run(host="0.0.0.0", port="5000")

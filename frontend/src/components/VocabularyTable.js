@@ -20,8 +20,9 @@ class VocabularyTable extends React.Component {
   }
   componentDidUpdate(prevProps) {
     if (this.props.group !== prevProps.group) {
+      // console.log(this.props);
       this.setState({ vocabulario: [] });
-      get_words(this.props.group).then((vocabulario) => {
+      get_words(this.props.group, this.props.token).then((vocabulario) => {
         this.setState({ vocabulario });
       });
     }

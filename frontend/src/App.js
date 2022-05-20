@@ -7,7 +7,7 @@ import ShowVocabulary from "./components/ShowVocabulary";
 class App extends React.Component {
   render() {
     return (
-      <Container maxWidth="false" sx={{ bgcolor: "#cfe8fc", marginTop: "0" }}>
+      <Container maxWidth="false" sx={{ bgcolor: "#cfe8fc", margin: "0" }}>
         <Box
           maxWidth="lg"
           sx={{ bgcolor: "white", height: "100vh", maring: "auto" }}
@@ -17,11 +17,6 @@ class App extends React.Component {
       </Container>
     );
   }
-  // componentDidMount() {
-  //   axios.get("http://127.0.0.1:30000/api/vocabulary/word").then((res) => {
-  //     console.log(res);
-  //   });
-  // }
 }
 
 export default App;

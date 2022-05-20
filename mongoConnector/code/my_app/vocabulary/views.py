@@ -1,6 +1,8 @@
+from flask import abort
 from flask import request, Blueprint, jsonify
 from my_app.vocabulary.models import Group, Word
 from flask.views import MethodView
+from my_app.security.auth0 import get_user_from_bearer
 
 vocabulary = Blueprint("vocabulary", __name__)
 
@@ -31,43 +33,91 @@ def register_api(view, endpoint, url, pk="id", pk_type="int"):
 
 class ManageGroup(MethodView):
     def get(self, group_id):
-        if group_id is None:
-            groups = Group.objects.all()
-            return jsonify(groups)
-        else:
+        """
+        GET METHOD FOR group CLASS
+        """
+        # IF ID IS GIVEN
+        if group_id:
             group = Group.objects.get_or_404(pk=str(group_id))
             return jsonify(group)
 
+        # GET ACCESS TOKEN
+        token = get_user_from_bearer(request)
+
+        # GET GROUPS BY TOKEN
+        if token:
+            groups = Group.objects(user_email=token["email"]).all()
+            return jsonify(groups)
+
+        # GET ALL (DEFAULT)
+        else:
+            groups = Group.objects.all()
+            return jsonify(groups)
+
     def post(self):
+        """
+        POST METHOD FOR group CLASS
+        """
+        # GET NAME & TOKEN
         name = request.form.get("name")
+        token = get_user_from_bearer(request)
+
+        # CHECK IF TOKEN
+        if token:
+            email = token["email"]
+        else:
+            abort(401)
+
+        # SAVE IF CONTAINS NAME, ELSE ERROR 400: BAD REQUESTS
         if name:
-            group = Group(name=name)
-            group.save()
+            group = Group(name=name, user_email=email)
+            try:
+                group.save()
+            except Exception:
+                abort(500)
             return jsonify(group)
         else:
-            return jsonify("Name not found in body")
+            abort(400)
 
     def delete(self, group_id):
-        group = Group.objects(pk=group_id)
-        if group:
-            group.first().delete()
-            return jsonify("deleted")
+        """
+        DELETE METHOD FOR group CLASS
+        """
+        # GET NAME & ITEM FROM ID (404 IF NOT FOUND)
+        group = Group.objects.get_or_404(pk=str(group_id))
+        token = get_user_from_bearer(request)
+
+        # CHECK IF EMAIL IS EQUAL TO USER EMAIL  (DELETE ITEM IF TRUE, 401 IF NOT)
+        if token and (token.get("email") == group.user_email):
+            group.delete()
+            return jsonify("ITEM DELETED")
         else:
-            return jsonify("Doesnt exist")
+            abort(401)
 
     def put(self, group_id):
-        group = Group.objects(pk=group_id)
-        if group:
-            group = group.first()
-            name = request.form.get("name")
-            if name:
-                group.name = name
+        """
+        PUT METHOD FOR group CLASS
+        """
+        # GET NAME & ITEM FROM ID (404 IF NOT FOUND)
+        group = Group.objects.get_or_404(pk=str(group_id))
+        token = get_user_from_bearer(request)
+
+        # CHECK IF NAME -> UPDATE IT FROM MODEL IF TRUE
+        name = request.form.get("name")
+        if name:
+            group.name = name
+        else:
+            abort(400)
+
+        # CHECK IF EMAIL IS EQUAL TO USER EMAIL  (UPDATE ITEM IF TRUE, 401 IF NOT)
+        if token and (token.get("email") == group.user_email):
+            try:
                 group.save()
                 return jsonify(group)
-            else:
-                return jsonify("Name not found in body")
+            except:
+                abort(500)
         else:
-            return jsonify({"Object ID Doesnt exist": group_id})
+            abort(401)
 
 
 GROUP_URL = URL_API + "/group/"
@@ -77,52 +127,95 @@ register_api(ManageGroup, "group_api", GROUP_URL, pk="group_id", pk_type="string
 
 class ManageWord(MethodView):
     def get(self, word_id):
+        """
+        GET METHOD FOR word CLASS
+        """
+        # GET A LIST
         if word_id is None:
-            group = request.args.get("group")
-            if group:
-                group = Group.objects(name=group).first()
+            group_id = request.args.get("group")
+            # GROUP IS PROVIDED IN REQ ARGS
+            if group_id:
+                group = Group.objects.get_or_404(pk=str(group_id))
                 results = Word.objects(group=group).all()
                 return jsonify([result.tojson() for result in results])
+            # RETURN ALL
             else:
                 return jsonify(Word.objects().all())
+        # GET A ITEM (IF CORRECT ID IS PROVIDED)
         else:
-            word = Word.objects(pk=str(word_id))
-            if word:
-                return jsonify(word.first().tojson())
-            else:
-                return jsonify("404")
+            word = Word.objects.get_or_404(pk=str(word_id))
+            return jsonify(word.tojson())
 
     def post(self):
-        group_name = request.form.get("group")
-        group = Group.objects(name=group_name)
+        """
+        GET METHOD FOR word CLASS
+        """
+        # GET FORM ITEMS
+        group_id = request.form.get("group_id")
         to_learn = request.form.get("to_learn")
         translation = request.form.get("translation")
-        params = [group, to_learn, translation]
-        if all(params):
-            word = Word(group=group.first(), to_learn=to_learn, translation=translation)
-            word.save()
-            return jsonify(word)
+
+        # CHECK ALL ITEMS ARE INCLUDED IN FORM (400 IF NOT)
+        if not (group_id and to_learn and translation):
+            abort(400)
+
+        # CHECK GROUP EXISTS (400 IF NOT)
+        group = Group.objects.get_or_404(pk=str(group_id))
+
+        # GET TOKEN
+        token = get_user_from_bearer(request)
+
+        # VERIFY TOKEN (401 IF FAILS), SAVE THE ELEMENT (500 IF FAILS)
+        if token and (token.get("email") == group.user_email):
+            # CREATE THE NEW ITEM
+            word = Word(group=group, to_learn=to_learn, translation=translation)
+            try:
+                word.save()
+                return jsonify(word)
+            except:
+                abort(500)  # INTERNAL ERROR
         else:
-            return jsonify({"Something went wrong": params})
+            abort(401)  # NOT AUTH
 
     def delete(self, word_id):
-        word = Word.objects(pk=word_id)
-        if word:
-            word.first().delete()
-            return jsonify("deleted")
+        """
+        DELETE METHOD FOR word CLASS
+        """
+        # GET WORD FROM ID (404 IF FAILS)
+        word = Word.objects.get_or_404(pk=str(word_id))
+
+        # GET TOKEN
+        token = get_user_from_bearer(request)
+
+        if token and (token.get("email") == word.group.user_email):
+            word.delete()
+            return jsonify("ITEM DELETED")
         else:
-            return jsonify("Doesnt exist")
+            abort(401)
 
     def put(self, word_id):
-        word = Word.objects(pk=word_id)
-        if word:
-            word = word.first()
-            word.to_learn = request.form.get("to_learn", word.to_learn)
-            word.translation = request.form.get("translation", word.translation)
-            word.save()
-            return jsonify(word.tojson())
+        """
+        PUT METHOD FOR word CLASS
+        """
+        # GET WORD FROM ID (404 IF FAILS)
+        word = Word.objects.get_or_404(pk=str(word_id))
+
+        # GET FORM ITEMS
+        word.to_learn = request.form.get("to_learn", word.to_learn)
+        word.translation = request.form.get("translation", word.translation)
+
+        # GET TOKEN
+        token = get_user_from_bearer(request)
+
+        # VERIFY TOKEN (401 IF FAILS), SAVE THE ELEMENT (500 IF FAILS)
+        if token and (token.get("email") == word.group.user_email):
+            try:
+                word.save()
+                return jsonify(word)
+            except:
+                abort(500)  # INTERNAL ERROR
         else:
-            return jsonify({"Object ID Doesnt exist": word_id})
+            abort(401)  # NOT AUTH
 
 
 WORD_URL = URL_API + "/word/"

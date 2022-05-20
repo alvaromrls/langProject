@@ -16,8 +16,17 @@ spec:
       containers:
         - name: flask
           image: flask-app:v0.0
+          # imagePullPolicy: Always
           ports:
             - containerPort: 5000
           env:
+            - name: VALIDATE_DOMAIN_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: lang-config
+                  key: VALIDATE_DOMAIN_URL
             - name: MONGO_URL
               value: mongodb://mydatabase-service
+          # resources:
+          #   limits:
+          #     -

@@ -15,7 +15,8 @@ class SelectCategory extends React.Component {
     };
   }
   componentDidMount() {
-    get_groups().then((grupo) => {
+    // console.log(this.props);
+    get_groups(this.props.token).then((grupo) => {
       this.setState({ grupo });
     });
   }
@@ -35,8 +36,8 @@ class SelectCategory extends React.Component {
             onChange={this.props.handleChange}
           >
             {this.state.grupo.map((opcion) => (
-              <MenuItem key={opcion} value={opcion}>
-                {opcion}
+              <MenuItem key={opcion.id} value={opcion.id}>
+                {opcion.name}
               </MenuItem>
             ))}
             {/* <MenuItem value={10}>Ten</MenuItem>

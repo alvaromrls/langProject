@@ -36,22 +36,30 @@ Cliente web para acceder a la información del servidor. Se encuentra en el dire
 Una captura del frontend:
 ![Ejemplo FrontEnd](./img/ejemplo_frontend.png)
 
+# 4. Auth0
+
+Utilizado para gestionar la creación de perfiles ....
+
 # Hoja de Ruta
 
 - Añadir POST/DELETE/PUT al front-end [pendiente]
-- Crear el modelo básico de datos en el servidor de FLASK [listo]
 - Terminar de documentar la API [pendiente]
-- Crear el servidor API en desarrollo con uwsgi [listo]
-- Crear un servicio de front-end usando REACT JS [listo]
-- Actualizar el Volumen de Persistencia para que guarde bien los datos [listo]
 - Añadir Readiness y Liveness a los contenedores [pendiente]
 - Acceder a la api desde la petición de navegador de manera correcta [pendiente]
 - Crear todo en entornos de Produccion [medio-listo]
-- Añadir proceso de autentificación-perfiles [futuro]
+- Añadir proceso de autentificación-perfiles [listo]
 - Ajustar visibilidad de cada uno de los contenedores [futuro]
+
+# Objetivos completados
+
+- Crear el modelo básico de datos en el servidor de FLASK [listo]
+- Crear el servidor API en desarrollo con uwsgi [listo]
+- Crear un servicio de front-end usando REACT JS [listo]
+- Actualizar el Volumen de Persistencia para que guarde bien los datos [listo]
 
 # Actualizaciones
 
+- 20/05/2022: Perfiles usando Auth0
 - 18/05/2022: Versiones de prod de Flask y React
 - 17/05/2022: Almacenamiento permanente en mi PC
 - 17/05/2022: Primera versión operativa de React

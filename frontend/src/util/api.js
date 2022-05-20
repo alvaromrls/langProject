@@ -6,18 +6,32 @@ import axios from "axios";
 
 const URL_BASE = `http://192.168.18.13:30000/api/vocabulary`;
 
-const get_groups = () => {
-  return axios.get(`${URL_BASE}/group`).then((res) => {
-    const grupo = res.data.map((dato) => dato.name);
+const prepare_headers = (token) => {
+  // const confing = { headers: { Authorization: `Bearer ${token}` } };
+  return { headers: { Authorization: `Bearer ${token}` } };
+};
+
+const get_groups = (token) => {
+  const config = prepare_headers(token);
+  return axios.get(`${URL_BASE}/group`, { config }).then((res) => {
+    // console.log(res.data);
+    const grupo = res.data.map((dato) => ({
+      name: dato.name,
+      id: dato._id.$oid,
+    }));
+    console.log(grupo);
     return grupo;
   });
 };
 
-const get_words = (group) => {
-  return axios.get(`${URL_BASE}/word?group=${group}`).then((res) => {
-    const vocabulario = res.data.map((dato) => dato);
-    return vocabulario;
-  });
+const get_words = (group, token) => {
+  const config = prepare_headers(token);
+  return axios
+    .get(`${URL_BASE}/word?group=${group}`, { config })
+    .then((res) => {
+      const vocabulario = res.data.map((dato) => dato);
+      return vocabulario;
+    });
 };
 
 export { get_groups, get_words };
